@@ -1,23 +1,29 @@
 {
-  "name": "bootstrap-starter",
-  "version": "1.0.0",
-  "description": "My web starter template from bootstrap starter",
+  "name": "bootstrap-npm-starter",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Demo project for building a Bootstrap powered site via npm.",
+  "author": "mdo",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisAchinga/Bootstrap-Starter.git"
+    "url": "git+https://github.com/twbs/bootstrap-npm-starter.git"
   },
   "bugs": {
-    "url": "https://github.com/ChrisAchinga/Bootstrap-Starter/issues"
+    "url": "https://github.com/twbs/bootstrap-npm-starter/issues"
   },
+  "homepage": "https://github.com/twbs/bootstrap-npm-starter#readme",
   "scripts": {
     "build": "npm run css",
     "css-compile": "node-sass --include-path node_modules --output-style compressed --source-map true --source-map-contents true --precision 6 scss -o assets/css/",
-    "css-prefix": "postcss --replace assets/css/style.css --use autoprefixer --map",
-    "css-purge": "purgecss --css assets/css/style.css --content index.html --output assets/css/",
-    "css": "npm run css-compile && npm run css-prefix",
-    "start": "serve --listen 3000",
+    "css-lint": "stylelint scss/",
+    "css-prefix": "postcss --replace assets/css/starter.css --use autoprefixer --map",
+    "css-purge": "purgecss --keyframes --css assets/css/starter.css --content index.html \"node_modules/bootstrap/js/dist/{util,modal}.js\" --output assets/css/",
+    "css": "npm-run-all css-compile css-prefix",
+    "server": "sirv --port 3000",
+    "start": "npm-run-all --parallel watch server",
     "watch": "nodemon -e html,scss -x \"npm run css\"",
-    "test": "npm run css"
+    "test": "npm run css-lint && npm run css"
   },
   "keywords": [
     "bootstrap",
@@ -27,19 +33,22 @@
     "starter",
     "template"
   ],
-  "author": "Chris Achinga",
-  "license": "MIT",
   "dependencies": {
-    "bootstrap": "^4.5.3",
-    "jquery": "^3.5.1",
-    "popper.js": "1.16.1"
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.0",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.0",
-    "node-sass": "^4.14.1",
-    "nodemon": "^2.0.6",
-    "postcss-cli": "^7.1.1",
-    "purgecss": "^2.1.2",
-    "serve": "^11.3.0"
+    "autoprefixer": "^10.2.5",
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "purgecss": "^4.0.2",
+    "sirv-cli": "^1.0.11",
+    "stylelint": "^13.12.0",
+    "stylelint-config-twbs-bootstrap": "^2.1.0"
   }
 }
